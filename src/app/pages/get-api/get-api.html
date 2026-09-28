@@ -1,0 +1,49 @@
+<div class="row">
+    <div class="col-3">
+        <button class="btn btn-success" (click)="getAllUsers()">Get Users</button>
+    </div>
+    <div class="col-3">
+        <button class="btn btn-success" (click)="getAllTodos()">Get Todos</button>
+    </div>
+    <div class="col-3">
+        <button class="btn btn-warning" (click)="getAllCars()">Get Cars</button>
+    </div>
+</div>
+<div class="row">
+    <div class="col-3">
+        <ul>
+            @for(item of userList; track $index){
+                <li>{{item.username}} -- {{item.email}}</li>
+            }
+        </ul>
+    </div>
+    <div class="col-3">
+        <select>
+            @for (item of todoList(); track $index) {
+                <option>{{item.title}}</option>
+            }
+        </select>
+    </div>
+    <div class="col-3">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Sno</th>
+                    <th>Brand</th>
+                    <th>Model</th>
+                    <th>Year</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (item of carList(); track $index) {
+                <tr>
+                    <td>{{$index+1}}</td>
+                    <td>{{item.brand}}</td>
+                    <td>{{item.model}}</td>
+                    <td>{{item.year}}</td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

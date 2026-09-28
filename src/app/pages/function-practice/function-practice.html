@@ -1,0 +1,84 @@
+<p>function-practice works!</p>
+
+<div>
+    <h3>Task 1</h3>
+    <button (click)="firstFunction()">Task1 Function</button>
+    <hr>
+
+    <h3>Task 2</h3>
+    <input [(ngModel)]="number1" type ="number" placeholder = "Enter Number">
+    <button (click)="square(number1)">Calculate Square</button>
+    <p>Square=>{{resultSquare}}</p>
+    <hr>
+
+    <h3>Task 3</h3>
+    <input type="number" [(ngModel)] ="num1" placeholder="Enter num1">
+    <input type="number" [(ngModel)] = "num2" placeholder="Enter num2">
+    <input type="number" [(ngModel)] = "num3" placeholder="Enter num3">
+    <input type="number" [(ngModel)] = "num4" placeholder="Enter num4">
+    <button (click)="addition(num1,num2,num3,num4)">Addition</button>
+    <p>Addition=>{{resultSum}}</p>
+    <hr>
+
+    <h3>Task - Email Formatter Function</h3>
+    <input type="text"  [(ngModel)] = "fullName" placeholder="Enter Full Name">
+    <button (click)="formatEmail(fullName)">Generate Email</button>
+    <p>Email generated is :=> {{resultEmail}}</p>
+    <hr>
+
+    <h3>Task - Calculator Function</h3>
+    <input [(ngModel)]="taskCalculateNum1" type="number" placeholder="Enter Number 1">
+    <input [(ngModel)]="taskCalculateNum2" type="number" placeholder="Enter Number 2">
+    <select [(ngModel)] = "selectedOperation">
+        <option value ="">Select operation</option>
+        @for (item of operations; track $index) {
+            <option>{{item}}</option>
+        }
+    </select>
+    <button (click)="calculate(taskCalculateNum1,taskCalculateNum2,selectedOperation)">Calculate</button>
+    <hr>
+
+    <h3>Task - Text Analysis Function</h3>
+    <textarea [(ngModel)] ="analyzeString" rows="4" placeholder="Enter Text"></textarea>
+    <button (click)="analyzeText(analyzeString)">Analyze</button>
+    <table border="1px">
+        <tr>
+            <th>total character(including space)</th>
+            <th>total character(excluding space)</th>
+            <th>total words</th>
+            <th>total sentences</th>
+            <th>Most repeated character</th>
+        </tr>
+        <tr>
+            <td>{{resultAnalyzeObj.totalChInSpace}}</td>
+            <td>{{resultAnalyzeObj.totalChExSpace}}</td>
+            <td>{{resultAnalyzeObj.totalWords}}</td>
+            <td>{{resultAnalyzeObj.totalSentences}}</td>
+            <td>{{resultAnalyzeObj.mostRepeatCh}}</td>
+        </tr>
+    </table>
+    <hr>
+
+    <h2>Advance Tasks</h2>
+    <h3>Task1</h3>
+    <input type="text" [(ngModel)]="inputString" placeholder="Enter a word">
+    <button (click)="titleCaseFunc(inputString)">convert to title case</button>
+    <p>{{resultTitleCase}}</p>
+    <hr>
+
+    <h3>Task2</h3>
+    <textarea [(ngModel)]="inputTitleCaseSentence"></textarea>
+    <button (click)="titleCaseEachString(inputTitleCaseSentence)">Convert each word to title case</button>
+    <p>{{outputTitleCaseSentence}}</p>
+    <hr>
+
+    <h3>Task3</h3>
+    <button (click)="sumOfAnyParameter(10,20,30)">Sum of any parameters</button>
+
+    <h3>Task4</h3>
+    <button (click)="incrementButton1Counter()">Button1</button>
+    <button (click)="incrementButton2Counter()">Button2</button>
+    <p>Button1 clicked {{counter1}} times, Button 2 clicked {{counter2}} times</p>
+
+
+</div>

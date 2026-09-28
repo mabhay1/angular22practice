@@ -1,0 +1,276 @@
+<h1>NGIF PRACTICE</h1>
+<div class="col-md-3">
+    <div *ngIf="div11textBox1!==div11textBox2" class="bg-success">Div11</div>
+    <input type="text" [(ngModel)]="div11textBox1">
+    <input type="text" [(ngModel)]="div11textBox2">
+</div>
+<div class="row">
+    <div class="col-4">
+        <h3>Task1</h3>
+        <input [(ngModel)]="gender" type="radio" value="Male"> Male
+        <input [(ngModel)]="gender" type="radio" value="Female"> Female
+        <p *ngIf="gender==='Male'">You have selected Male</p>
+        <p *ngIf="gender==='Female'">You have selected Female</p>
+    </div>
+    <div class="col-4">
+        <div class="row">
+            <div class="col-4 m-2" (click)="setSelectedCategory('Mobile')"
+                style="height: 50px;width: 100px; background-color: green;">Mobile</div>
+            <div class="col-4 m-2" (click)="setSelectedCategory('Laptop')"
+                style="height: 50px;width: 100px; background-color: red;">Laptop</div>
+            <div class="col-4 m-2" (click)="setSelectedCategory('Camera')"
+                style="height: 50px;width: 100px; background-color: gray;">Camera</div>
+        </div>
+        Selected Category - {{selectedCategory}}
+        @if (selectedCategory==='Mobile') {
+        <p>Samsumg, Sony, Motorola, Micromax</p>
+        }@else if (selectedCategory==='Laptop') {
+        <p>Sony, Lenovo, Hp, Acer</p>
+        }@else if (selectedCategory === 'Camera') {
+        <p>Sony, Philips</p>
+        }
+    </div>
+    <div class="col-4">
+        <div class="row">
+            <div class="col-4 m-2 bg-success" style="height: 30px;" *ngIf="isDiv1Visible===true">
+                div1
+            </div>
+            @if (isDiv2Visible) {
+            <div class="col-4 m-2 bg-secondary">
+                div2
+            </div>
+            }
+        </div>
+        <div class="row">
+            <div class="col-4 m-2">
+                <button class="btn btn-sm btn-success" (click)="showHideDiv1(true)">Show</button>
+                <button class="btn btn-sm btn-danger" (click)="showHideDiv1(false)">Hide</button>
+            </div>
+            <div class="col-4 m-2">
+                <button class="btn btn-sm btn-success" (click)="toggleDiv2()">Show/Hide Div2</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-2">
+        <label>First Name</label>
+        <input [(ngModel)]="fName" type="text">
+    </div>
+    <div class="col-2">
+        <label>Last Name</label>
+        <input [(ngModel)]="lName" type="text">
+    </div>
+    <div class="col-12">
+        <label>Full Name</label>
+        <input type="text" disabled="true" [value]="fName + ' '+lName">
+    </div>
+</div>
+<div class="row">
+    <div class="col-3">
+        <label>State</label>
+        <select [(ngModel)]="state">
+            <option value="">Choose..</option>
+            <option>MH</option>
+            <option>HR</option>
+            <option>MP</option>
+            <option>Other</option>
+        </select>
+    </div>
+    @if (state==="Other") {
+    <div class="col-3">
+        <label>State</label>
+        <input type="text">
+    </div>
+    }
+    <div class="col-3">
+        <label>City</label>
+        <select [(ngModel)]="city">
+            <option value="">Choose..</option>
+            <option>Pune</option>
+            <option>Sonipat</option>
+            <option>Delhi</option>
+            <option>Other</option>
+        </select>
+    </div>
+
+    <div class="col-3" *ngIf="city==='Other'">
+        <label>City</label>
+        <select [(ngModel)]="city">
+            <option value="">Choose..</option>
+            <option>Pune</option>
+            <option>Sonipat</option>
+            <option>Delhi</option>
+            <option>Other</option>
+        </select>
+    </div>
+
+</div>
+<!--Who are you?
+    <input type="checkbox" [(ngModel)]="isTeacher" (change)="setSelectedOptionWithDifferentVariables('teacher')"> Teacher {{isTeacher}}
+    <input type="checkbox" [(ngModel)]="isSport" (change)="setSelectedOptionWithDifferentVariables('sport')"> Sports Person {{isSport}}
+    <input type="checkbox" [(ngModel)]="isMusician" (change)="setSelectedOptionWithDifferentVariables('musician')"> Musician {{isMusician}}
+
+-->
+Who are you?
+@for (item of professionArray; track $index) {
+<input type="checkbox" [checked]="profession===item" (change)="setSelectedOption(item)"> {{item}}
+}
+<div class="row">
+    <div class="col-3">
+        @if(profession==='teacher'){
+        Subject you can teach
+        <textarea></textarea>
+        Highest Education <input type="text">
+        }@else if(profession==='sport'){
+        Sports you are good<input type="text">
+        }
+        @else if(profession==='musician') {
+        Instrument you play<input type="text">
+        }
+    </div>
+</div>
+<!-- <input type="checkbox" [checked]="profession==='teacher'" (change)="setSelectedOption('teacher')"> Teacher
+    <input type="checkbox" [checked]="profession==='sport'" (change)="setSelectedOption('sport')"> Sports Person
+    <input type="checkbox" [checked]="profession==='musician'" (change)="setSelectedOption('musician')"> Musician -->
+
+{{profession}}
+
+<div class="row">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>SNo.</th>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Attendance</th>
+                <th>Is Indian</th>
+                <th>Gender</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let student of studentArray; let sno=index;">
+                <td>{{sno+1}}</td>
+                <td>{{student.name}}</td>
+                <td>{{student.age<50?'Low':student.age}}< /td>
+                <td>{{student.attendance}}</td>
+                <td>{{student.isIndian?'Indian':'Foreigner'}}</td>
+                <td>{{student.gender==='M'?'Male':'Female'}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<h1>NGFOR PRACTICE</h1>
+<div class="row">
+    <div class="col-3">
+        <div class="row">
+            <div class="col-6">
+                <input type="text" [(ngModel)]="cityTextBox" class="form-control" placeholder="Enter City">
+            </div>
+            <div class="col-6">
+                <button class="btn btn-sm btn-success" (click)="addCity()">Add City</button>
+            </div>
+        </div>
+        <div class="row pt-3">
+            <div class="col-6">
+                <select class="form-select">
+                    <option value="">Select City</option>
+                    @for (item of cityArray; track $index) {
+                    <option>{{item}}</option>
+                    }
+                </select>
+            </div>
+            <div class="col-6">
+                Total City Added: <strong>{{cityArray.length>0?cityArray.length:''}}</strong>
+            </div>
+        </div>
+    </div>
+    <div class="col-3">
+        <button class="btn btn-sm btn-primary mx-1" [class.btn-success]="selectedLanguage===language"
+            *ngFor="let language of languages" (click)="setSelectedLang(language)">
+            {{language}}
+        </button>
+    </div>
+    <div class="col-3">
+        <div class="row">
+            <div class="col-6">
+                <input type="text" [(ngModel)]="tableNo" class="form-control" placeholder="Enter Number">
+            </div>
+            <div class="col-6">
+                <button class="btn btn-sm btn-success" (click)="printTable()">Print Table</button>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <table class="table table-bordered">
+                @for (item of tableArray; track $index) {
+                <tr>
+                    <td>{{item}}</td>
+                </tr>
+                }
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="row p-2">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <td>SNo</td>
+                <td>Page Url</td>
+                <td>Link Text</td>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- @for (item of pageObjArray; track $index) {
+                <tr [ngClass]="{
+                    'table-success':$first,
+                    'table-danger': $last
+                }">
+                    <td >{{$index+1}}</td>
+                    <td>{{item.url}}</td>
+                    <td>{{item.text}}</td>
+                </tr>
+            } -->
+            @for (item of pageObjArray; track $index; let first=$first; let last = $last;) {
+            <tr [ngClass]="{
+                    'table-success':first,
+                    'table-danger': last
+                }">
+                <td>{{$index+1}}</td>
+                <td>{{item.url}}</td>
+                <td>{{item.text}}</td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div class="col-md-3">
+    <div class="row p-2">
+        <div class="col-6">
+            <label>Selected State</label>
+            <select [(ngModel)]="selectedStateId" class="form-select">
+                <option value="">Select</option>
+                @for (item of stateObjArray; track $index) {
+                <option [value]="item.stateId">{{item.stateName}}</option>
+                }
+            </select>
+        </div>
+        <div class="col-6">
+            <label>Selected City</label>
+            <select [(ngModel)]="selectedCityId" class="form-select">
+                <option value="">Select</option>
+                <option [value]="city.cityId" *ngFor="let city of CityObjArray">{{city.cityName}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="row p-2">
+        <div class="col-6">
+            <label>Selected State: <span>{{selectedStateId}}</span></label>
+        </div>
+        <div class="col-6">
+            <label>Selected City: <span>{{selectedCityId}}</span></label>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,111 @@
+<h1>NGCLASS PRACTICE</h1>
+<div class="row">
+    <div class="col-3 p-2">
+        <div style="height: 100px; width: 100px; border:2px solid black" [ngClass]="div1Class">
+            Div1
+        </div>
+    </div>
+    <!-- <div class="col-3 p-2">
+        <div style="height: 30px; width: 100px; border:2px solid black" [ngClass]="isDiv2ToggleClass?'bg-success':'bg-danger'" >
+            Div2
+        </div>
+        <button (click)="toggleDiv2Class()" class="my-2 btn btn-success">Toggle Class</button>
+    </div> -->
+    <div class="col-3 p-2">
+        <div style="height: 30px; width: 100px; border:2px solid black" [ngClass]="div3Class" >
+            Div3
+        </div>
+        <button (click)="toggleDiv3Class()" class="my-2 btn btn-success">Toggle Class</button>
+    </div>
+    <div class="col-3 p-2">
+        <div [ngClass]="div4Class" >
+            Div4
+        </div>
+        <div>
+            <button class="my-2 btn btn-success" (click)="addDiv4Class('bg-success')">Success</button>
+            <button class="m-2 btn btn-danger" (click)="addDiv4Class('bg-danger')">Danger</button>
+        </div>
+    </div>
+    <div class="col-3 p-2">
+        @for (item of languages; track $index) {
+            <button [ngClass]="selectedLanguage===item?'bg-success':''" class="m-2 btn btn-sm btn-secondary" (click)="setSelectedLanguage(item)">{{item}}</button>
+        }
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-7" [ngClass]="isSidePanelVisible?'col-7':'col-12'">
+        <div class="card">
+            <div class="card-header bg-success">
+                <div class="row">
+                    <div class="col-10">Main Panel</div>
+                    <div class="col-2">
+                        <button (click)="isSidePanelVisible=true">Add</button>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body p-4">Main Panel Content</div>
+        </div>
+    </div>
+    @if (isSidePanelVisible) {
+        <div class="col-5">
+            <div class="card">
+                <div class="card-header bg-success">
+                    <div class="row">
+                        <div class="col-10">Side Panel</div>
+                        <div class="col-2">
+                            <button (click)="isSidePanelVisible=false">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body p-4">Side Panel Content</div>
+            </div>
+        </div>
+    }
+</div>
+<div class="row m-3">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>SNo</th>
+                <th>Name</th>
+                <th>Gender</th>
+                <th>State</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (item of students; track $index) {
+                <tr [ngClass]="selectedStudentRow===$index?'table-secondary':''" (click)="setSelectedStudentRow($index)">
+                    <td>{{$index+1}}</td>
+                    <td>{{item.name}}</td>
+                    <td>{{item.gender}}</td>
+                    <td>{{item.state}}</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<h1>NGSTYLE PRACTICE</h1>
+<div class="row">
+    <div class="col-6">
+        <!-- <div [ngStyle]="{ width:width+'px',height:height+'px',borderRadius:radius,'background-color':color}">Div1</div> -->
+        <div [ngStyle]="div1NewStyle">Div1-New</div>
+        <div class="my-4">
+            <input [(ngModel)]="width" type="text" class="form-control" placeholder=" enter width">
+            <input [(ngModel)]="height" type="text" class="form-control" placeholder=" enter height">
+            <input [(ngModel)]="radius" type="text" class="form-control" placeholder=" enter radius">
+            <input [(ngModel)]="color" type="color" class="form-control">{{color}}
+        </div>
+
+        <button (click)="setStyleDiv1New()" class="btn btn-sm btn-success">Create Circle</button>
+
+    </div>
+</div>
+<div class="col-md-6">
+    <div class="progress">
+    <div class="progress-bar" [ngStyle]="{width:width+'%'}"></div>
+    </div>
+</div>
+<div class="col-md-6">
+    <input type="text" [(ngModel)]="width" class="form-control" placeholder="Enter % width">
+</div>

@@ -1,0 +1,180 @@
+<div class="container-fluid py-4">
+    <div class="row g-4">
+
+        <!-- Vendor Cards -->
+        <div class="col-md-8">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <div>
+                    <h5 class="mb-1">Vendors</h5>
+                    <p class="text-muted small mb-0">Manage your vendors</p>
+                </div>
+
+                <span class="badge text-bg-light border">{{vendorList().length}} Vendors</span>
+            </div>
+            @if(loader()){
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <div class="spinner-border text-secondary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <div class="spinner-border text-success" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <div class="spinner-border text-danger" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <div class="spinner-border text-warning" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <div class="spinner-border text-info" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <div class="spinner-border text-light" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <div class="spinner-border text-dark" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            }
+            @else{
+            <div class="row g-3">
+
+                <!-- Vendor Card 1 -->
+                @for (item of vendorList(); track $index) {
+                <div class="col-md-4">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body">
+
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="bg-primary-subtle text-primary rounded-circle
+                                d-flex align-items-center justify-content-center" style="width:45px;height:45px;">
+                                        <strong>{{item.vendorName|slice:0:2}}</strong>
+                                    </div>
+
+                                    <div>
+                                        <h6 class="mb-1">{{item.vendorName}}</h6>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="small text-muted mb-2">
+                                <i class="bi bi-telephone me-2"></i>
+                                {{item.contactNo}}
+                            </div>
+
+                            <div class="small text-muted mb-3">
+                                <i class="bi bi-envelope me-2"></i>
+                                {{item.emailId}}
+                            </div>
+
+                            <div class="border-top pt-3 d-flex justify-content-end gap-2">
+                                <button class="btn btn-sm btn-outline-primary" (click)="onEdit(item)">
+                                    Edit
+                                </button>
+
+                                <button class="btn btn-sm btn-outline-danger" (click)="onDelete(item.vendorId)">
+                                    Delete
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                }
+            </div>}
+        </div>
+
+
+        <!-- Vendor Form -->
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm">
+
+                <div class="card-header bg-white border-bottom py-3">
+                    <h5 class="mb-1">Add Vendor</h5>
+                    <p class="text-muted small mb-0">
+                        Enter vendor details
+                    </p>
+                </div>
+
+                <div class="card-body">
+
+                    <form #formUser="ngForm">
+
+                        <div class="mb-3">
+                            <label for="vendorName" class="form-label">
+                                Vendor Name <span class="text-danger">*</span>
+                            </label>
+
+                            <input type="text" [(ngModel)]="vendorObj.vendorName" #vName="ngModel" required minlength="3" name="vendorName" class="form-control"
+                                id="vendorName" placeholder="Enter vendor name">
+                            @if(vName.touched||vName.dirty||isSubmit){
+                                @if(vName.errors?.['required']){
+                                    <div class="text-danger">This is required</div>
+                                } 
+                                @else if(vName.errors?.['minlength']){
+                                    <div class="text-danger">Minimum 3 character required</div>
+                                }
+                            }  
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="contactNo" class="form-label">
+                                Contact Number <span class="text-danger">*</span>
+                            </label>
+
+                            <input type="tel" [(ngModel)]="vendorObj.contactNo" #contactNumber="ngModel" required minlength="10" maxlength="10" pattern="[0-9]+" name="contactNo" class="form-control"
+                                id="contactNo" placeholder="Enter contact number">
+                            @if (contactNumber.touched||contactNumber.dirty) {
+                                @if(contactNumber.errors?.['required']){
+                                    <div class="text-danger">Contact number is required</div>
+                                }
+                                @if(contactNumber.errors?.['pattern']){
+                                    <div class="text-danger">Contact number should numbers only</div>
+                                }
+                                @if(contactNumber.errors?.['minlength']){
+                                    <div class="text-danger">Minimum 10 character required</div>
+                                }
+                            }
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="emailId" class="form-label">
+                                Email Address <span class="text-danger">*</span>
+                            </label>
+
+                            <input type="email" [(ngModel)]="vendorObj.emailId" required pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" #emailId="ngModel" name="emailId" class="form-control"
+                                id="emailId" placeholder="Enter email address">
+                                @if(emailId.touched||emailId.dirty){
+                                    @if(emailId.errors?.['required']){
+                                    <div class="text-danger">Email is required</div>
+                                    }
+                                    @if (emailId.errors?.['pattern']) {
+                                        <div class="text-danger">Email is invalid</div>
+                                    }
+                                }
+                        </div>
+
+                        <div class="d-flex justify-content-end gap-2">
+                            <button type="button" class="btn btn-light border" (click)="onReset()">
+                                Reset
+                            </button>
+                            @if (vendorObj.vendorId===0) {
+                            <button type="button" class="btn btn-primary px-4" (click)="onSaveVendor(formUser)">
+                                Save Vendor
+                            </button>}
+                            @else {
+                            <button type="button" class="btn btn-primary px-4" (click)="onUpdateVendor()">
+                                Update Vendor
+                            </button>}
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

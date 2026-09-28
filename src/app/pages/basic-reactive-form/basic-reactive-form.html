@@ -1,0 +1,170 @@
+<div class="container-fluid py-4">
+	<div class="row g-4">
+		<div class="col-12 col-lg-8">
+			<section class="card shadow-sm h-100" aria-labelledby="user-list-heading">
+				<div class="card-header bg-warning d-flex justify-content-between align-items-center py-3">
+					<h1 class="h5 mb-0" id="user-list-heading">Users</h1>
+					<button class="btn btn-primary" type="button">
+						<i class="fa-solid fa-plus me-2" aria-hidden="true"></i>Add User
+					</button>
+				</div>
+				<div class="card-body p-0">
+					<div class="table-responsive">
+						<table class="table table-bordered table-hover align-middle mb-0">
+							<thead class="table-light">
+								<tr>
+									<th scope="col">SNo</th>
+									<th scope="col">User Name</th>
+									<th scope="col">Email</th>
+									<th scope="col">Full Name</th>
+									<th scope="col">Role</th>
+									<th scope="col">Actions</th>
+								</tr>
+							</thead>
+							<tbody>
+                                @if(loading()){
+                                    <div class="spinner-border text-muted"></div>
+                                    <div class="spinner-border text-primary"></div>
+                                    <div class="spinner-border text-success"></div>
+                                    <div class="spinner-border text-info"></div>
+                                    <div class="spinner-border text-warning"></div>
+                                    <div class="spinner-border text-danger"></div>
+                                    <div class="spinner-border text-secondary"></div>
+                                    <div class="spinner-border text-dark"></div>
+                                    <div class="spinner-border text-light"></div>
+                                }
+                                @else{
+                                    @for(item of userList(); track $index){
+                                        <tr>
+                                            <td>{{$index+1}}</td>
+                                            <td>{{item.userName}}</td>
+                                            <td>{{item.emailId}}</td>
+                                            <td>{{item.fullName}}</td>
+                                            <td>{{item.role}}</td>
+                                            <td>
+                                                <button (click)="onEdit(item)" class="btn btn-sm btn-primary m-1">Edit</button>
+                                                <button class="btn btn-sm btn-warning">Delete</button>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+						</table>
+					</div>
+				</div>
+			</section>
+		</div>
+
+		<div class="col-12 col-lg-4">
+			<section class="card shadow-sm" aria-labelledby="user-form-heading">
+				<div class="card-header bg-warning d-flex justify-content-between align-items-center py-3">
+					<h2 class="h5 mb-0" id="user-form-heading">Add User</h2>
+					<button class="btn-close" type="button" aria-label="Close"></button>
+				</div>
+				<div class="card-body">
+					<!-- <form [formGroup]="userForm" (ngSubmit)="onSaveForm()"> -->
+					<form [formGroup]="userForm">
+						<div class="row g-3">
+                            <div class="col-12">
+                                <label class="form-label" for="userName">User Name</label>
+                                <input class="form-control" formControlName="userName" id="userName" name="userName" type="text"
+                                    placeholder="Enter user name" />
+                                    <!-- <div>{{userForm.get('userName')?.errors|json}}</div> -->
+                                @if(userForm.controls['userName'].touched||userForm.controls['userName'].dirty||isSubmit){    
+                                    <!-- Validation messages -->
+                                    <div class="mt-1">
+                                        @if(userForm.get('userName')?.errors?.['required']){
+                                        <div class="text-danger small">
+                                            User name is required.
+                                        </div>
+                                        }
+                                        @else if(userForm.get('userName')?.errors?.['minlength']){
+                                        <div class="text-danger small">
+                                            Min 3 char required
+                                        </div>
+                                        }
+                                    </div>
+                                }
+                            </div>
+							<div class="col-12">
+								<label class="form-label" for="emailId">Email ID</label>
+								<input class="form-control" formControlName="emailId" id="emailId" name="emailId" type="email" placeholder="name@example.com" />
+                                @if(userForm.controls['emailId'].touched||userForm.controls['emailId'].dirty||isSubmit){    
+                                    <!-- Validation messages -->
+                                    <div class="mt-1">
+                                        @if(userForm.controls['emailId'].errors?.['required']){
+                                        <div class="text-danger small">
+                                            EmailId is required.
+                                        </div>
+                                        }
+                                        @else if(userForm.get('emailId')?.errors?.['pattern']){
+                                        <div class="text-danger small">
+                                            EmailId is not valid
+                                        </div>
+                                        }
+                                    </div>
+                                }
+							</div>
+                            <div class="col-12">
+                                <label class="form-label" for="fullName">Full Name</label>
+                                <input class="form-control" formControlName="fullName" id="fullName" name="fullName" type="text"
+                                    placeholder="Enter full name" />
+                                @if(userForm.controls['fullName'].touched||userForm.controls['fullName'].dirty||isSubmit){
+                                    <!-- Validation messages -->
+                                    <div class="mt-1">
+                                        @if(userForm.controls['fullName'].errors?.['required']){
+                                            <div class="text-danger small">
+                                                Full name is required.
+                                            </div>
+                                        }
+                                        @else if(userForm.get('fullName')?.errors?.['minlength']){
+                                            <div class="text-danger small">
+                                                Minimum 4 character required.
+                                            </div>
+                                        }
+                                    </div>
+                                }
+                            </div>
+							<div class="col-12">
+								<label class="form-label" for="password">Password</label>
+								<input class="form-control" formControlName="password" id="password" name="password" type="password" placeholder="Enter password" />
+                                <!-- Validation messages -->
+                                 @if(userForm.controls['password'].touched||userForm.controls['password'].dirty||isSubmit){
+                                <div class="mt-1">
+                                    @if(userForm.controls['password'].errors?.['required']){
+                                    <div class="text-danger small">
+                                        Password is required.
+                                    </div>
+                                    }
+                                </div>
+                                }
+							</div>
+							<div class="col-12 d-flex justify-content-end gap-2 pt-2">
+								<button (click)="onReset()" class="btn btn-outline-secondary" type="button">
+									<i class="fa-solid fa-rotate-left me-2" aria-hidden="true"></i>Reset
+								</button>
+								<!-- <button [disabled]="userForm.invalid" class="btn btn-success" type="button" (click)="onSaveForm()">
+									<i class="fa-solid fa-floppy-disk me-2" aria-hidden="true"></i>Save
+								</button> -->
+                                <span>{{userForm.controls['userId'].value}}</span>
+                                @if (userForm.controls['userId'].value===0) {
+                                    <button class="btn btn-success" type="button" (click)="onSaveForm()">
+                                        <i class="fa-solid fa-floppy-disk me-2" aria-hidden="true"></i>Save
+                                    </button>
+                                }
+                                @else {
+                                    <button class="btn btn-warning" type="button" (click)="onUpdateForm()">
+                                        <i class="fa-solid fa-floppy-disk me-2" aria-hidden="true"></i>Update
+                                    </button>
+                                }
+                                <!-- <button class="btn btn-success" type="submit">
+									<i class="fa-solid fa-floppy-disk me-2" aria-hidden="true"></i>Save
+								</button> -->
+							</div>
+						</div>
+					</form>
+				</div>
+			</section>
+		</div>
+	</div>
+</div>

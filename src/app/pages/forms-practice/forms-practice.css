@@ -1,0 +1,18 @@
+.selectCard, .genderselectCard {
+    padding: 10px;
+    border: 1px solid #007bff;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    i{
+        margin-right: 10px;
+    }
+}   
+
+.cardActive {
+    border: 2px solid #f0ad4e;
+    background-color: #f0f8ff;
+}
