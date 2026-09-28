@@ -1,0 +1,7 @@
+@if(isShow){
+    <p>{{myText}}</p>
+}@else {
+    <p>{{myText|slice:0:minCharacters}}...</p>
+}
+
+<button class="btn btn-primary" (click)="hideShowText()">{{isShow?'Read Less':'Read More'}}</button>

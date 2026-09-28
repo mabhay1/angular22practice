@@ -1,11 +1,22 @@
 <div class="row">
+    <div class="col-4">
+        <app-custom-alert [alertType]="'Success'" [alertMessage]="'This is Success'" [alertClass]="'alert-success'"></app-custom-alert>
+    </div>
+    <div class="col-4">
+        <app-custom-alert [alertType]="'Warning'" [alertMessage]="'This is warning'" [alertClass]="'alert-warning'"></app-custom-alert>
+    </div>
+    <div class="col-4">
+        <app-custom-alert [alertType]="'Error'" [alertMessage]="'This is Error'" [alertClass]="'alert-danger'"></app-custom-alert>
+    </div>
+</div>
+<div class="row">
     <div class="col-7">
         <div class="card">
             <div class="card-header bg-warning">
                 List
             </div>
             <div class="card-body">
-                <div class="table-responsive">
+                <!-- <div class="table-responsive">
                     <table class="table table-hover align-middle mb-0">
                         <thead class="table-light">
                             <tr>
@@ -78,7 +89,9 @@
                             }
                         </tbody>
                     </table>
-                </div>
+                </div> -->
+                <app-custom-table [columnArray]="columList" [tableData]="enquiryList()" [showLoader]="loader()"
+                    (onEdit)="onEnquiryEdit($event)" (onDelete)="onDeleteEnquiry($event)"></app-custom-table>
             </div>
         </div>
     </div>

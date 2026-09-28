@@ -1,0 +1,11 @@
+<div class="progress">
+  <div class="progress-bar" role="progressbar" [ngStyle]="{
+    width:progress+'%',
+    backgroundColor:(progress>=0&&progress<=30)&&'red'||(progress>=31&&progress<=60)&&'yellow'|| (progress>=61&&progress<=100)&&'lightgreen'
+    }">
+    <span class="sr-only text-black">{{progress}}% Complete</span>
+  </div>
+<!-- <div class="progress-bar" role="progressbar" [style.width.%]="progress">
+    <span class="sr-only">{{progress}}% Complete</span>
+  </div> -->
+</div>

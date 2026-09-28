@@ -11,6 +11,7 @@ import { BusVendor } from './pages/bus-vendor/bus-vendor';
 import { SignalBasic } from './pages/signal-basic/signal-basic';
 import { BasicReactiveForm } from './pages/basic-reactive-form/basic-reactive-form';
 import { BasicSignalForm } from './pages/basic-signal-form/basic-signal-form';
+import { ParentResuableComponent } from './pages/parent-resuable-component/parent-resuable-component';
 
 export const routes: Routes = [
     {
@@ -61,6 +62,10 @@ export const routes: Routes = [
     {
         path:'basic-signal-form',
         component:BasicSignalForm
+    },
+    {
+        path:'parent-reusable',
+        component:ParentResuableComponent
     },
     {
         path:'**',

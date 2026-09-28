@@ -1,10 +1,11 @@
-import { JsonPipe, SlicePipe } from '@angular/common';
+import { SlicePipe } from '@angular/common';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Component, inject, signal, WritableSignal } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
+import { ShowMoreLess } from '../../shared/reusableComponent/show-more-less/show-more-less';
 
 @Component({
-  imports: [SlicePipe,FormsModule,JsonPipe],
+  imports: [SlicePipe, FormsModule, ShowMoreLess],
   selector: 'app-bus-vendor',
   styleUrl: './bus-vendor.css',
   templateUrl: './bus-vendor.html',

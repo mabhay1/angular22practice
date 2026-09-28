@@ -1,0 +1,41 @@
+<div class="row">
+    <h3>User Card</h3>
+    <div class="col-6">
+        <app-user-card [name]="'Abhay'" [age]="20" [role]="'Admin'"></app-user-card>
+    </div>
+    <div class="col-6">
+        <app-user-card [name]="'Joe'" [age]="24" [role]="'Employee'"></app-user-card>
+    </div>
+</div>
+<div class="row">
+    <h3>Badges</h3>
+    <div class="col-3">
+        <app-badge-custom [status]="'Primary'"></app-badge-custom>
+    </div>
+    <div class="col-3">
+        <app-badge-custom [status]="'Secondary'"></app-badge-custom>
+    </div>
+    <div class="col-3">
+        <app-badge-custom [status]="'Warning'"></app-badge-custom>
+    </div>
+    <div class="col-3">
+        <app-badge-custom [status]="'Danger'"></app-badge-custom>
+    </div>
+</div>
+<div class="row">
+    <h3>Product Card</h3>
+    <div class="col-4">
+        <app-product-card [product]="product"></app-product-card>
+    </div>
+</div>
+<div class="row">
+    <app-rating [ratingValue]="0"></app-rating>
+    <app-rating [ratingValue]="1"></app-rating>
+    <app-rating [ratingValue]="2"></app-rating>
+    <app-rating [ratingValue]="3"></app-rating>
+    <app-rating [ratingValue]="4"></app-rating>
+    <app-rating [ratingValue]="5"></app-rating>
+</div>
+<div class="row">
+    <app-custom-table></app-custom-table>
+</div>

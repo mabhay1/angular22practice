@@ -1,0 +1,6 @@
+<span class="badge bg-primary" [ngClass]="{
+        'bg-primary':status==='Primary',
+        'bg-secondary':status==='Secondary',
+        'bg-danger':status==='Danger',
+        'bg-warning':status==='Warning'
+    }">{{status}}</span>

@@ -6,9 +6,10 @@ import { map, Observable } from 'rxjs';
 import { EmployeeService } from '../../services/employee-service';
 import { IApiResponse } from '../../models/interface/BankUser.model';
 import { HttpErrorResponse } from '@angular/common/http';
+import { ProgressBar } from '../../shared/reusableComponent/progress-bar/progress-bar';
 
 @Component({
-  imports: [FormField,AsyncPipe],
+  imports: [FormField, AsyncPipe, ProgressBar],
   selector: 'app-basic-signal-form',
   styleUrl: './basic-signal-form.css',
   templateUrl: './basic-signal-form.html',

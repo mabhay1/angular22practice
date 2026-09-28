@@ -1,9 +1,11 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Component, signal, WritableSignal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { CustomAlert } from '../../shared/reusableComponent/custom-alert/custom-alert';
+import { CustomTable } from '../../shared/reusableComponent/custom-table/custom-table';
 
 @Component({
-  imports: [FormsModule],
+  imports: [FormsModule, CustomAlert, CustomTable],
   selector: 'app-enquiry',
   styleUrl: './enquiry.css',
   templateUrl: './enquiry.html',
@@ -27,6 +29,13 @@ export class Enquiry {
     feedback: ""
   }
   enquiryList=signal<any[]>([])
+  columList:any[]=[
+    {keyName: 'customerName',columnName: 'Customer'},
+    {keyName:'customerPhone',columnName:'Contact'},
+    {keyName:'enquiryType',columnName:'Enquiry Type'},
+    {keyName:'statusId',columnName:'Status'},
+    {keyName:'categoryId',columnName:'Category'}
+  ]
   constructor(private http:HttpClient){
     this.getAllCategory()
     this.getAllStatus()
@@ -80,10 +89,33 @@ export class Enquiry {
       }
     })
   }
-  onEdit(enqObj:any){
-    this.enquiryObj={...enqObj}
+  // onEdit(enqObj:any){
+  //   this.enquiryObj={...enqObj}
+  // }
+  // onDelete(id:number){
+  //   const isConfirm=confirm("Are you sure you want to delete")
+  //   if(isConfirm){
+  //     this.http.delete("https://api.freeprojectapi.com/api/Enquiry/delete-enquiry/"+id).subscribe({
+  //       next:(res:any)=>{
+  //         if(res.result){
+  //           alert("Deleted Success")
+  //           this.getAllEnquiry()
+  //         }
+  //         else{
+  //           alert(res.message)
+  //         }
+  //       },
+  //       error:(err:HttpErrorResponse)=>{
+  //         alert("API Error")
+  //       }
+  //     })
+  //   }
+  // }
+  onEnquiryEdit(event:any){
+    this.enquiryObj=structuredClone(event)
   }
-  onDelete(id:number){
+  onDeleteEnquiry(event:any){
+    const id=event.enquiryId
     const isConfirm=confirm("Are you sure you want to delete")
     if(isConfirm){
       this.http.delete("https://api.freeprojectapi.com/api/Enquiry/delete-enquiry/"+id).subscribe({
@@ -103,6 +135,7 @@ export class Enquiry {
     }
   }
   onResetEnquiry() {
+    debugger
     this.enquiryObj = {
       enquiryId: 0,
       customerName: "",
@@ -154,4 +187,5 @@ export class Enquiry {
       }
     })
   }
+
 }
