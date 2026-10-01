@@ -1,5 +1,5 @@
 import { NgStyle } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, Input, signal } from '@angular/core';
 
 @Component({
   imports: [NgStyle],
@@ -9,4 +9,6 @@ import { Component, Input } from '@angular/core';
 })
 export class ProgressBar {
   @Input() progress:number=0
+  newVariable=""
+  newSignal=signal<string>("")
 }

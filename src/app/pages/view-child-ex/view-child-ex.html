@@ -1,0 +1,31 @@
+<div class="row">
+    <div class="col-3">
+        <input type="text" #courseNameTem class="form-control">
+    </div>
+    <div class="col-3">
+        <button class="btn btn-sm btn-success" (click)="readCourseName()">Read Course</button>
+    </div>
+    <div class="col-3">
+        <button (click)="setJava()">Set Java</button>
+    </div>
+</div>
+<div class="row">
+    <div class="col-6">
+        <app-custom-alert [alertType]="'Warning'" [alertMessage]="'Welcome to view child component'"></app-custom-alert>
+    </div>
+    <div class="col-6">
+        <app-progress-bar [progress]="60"></app-progress-bar>
+    </div>
+</div>
+<div class="row">
+    <div class="col-3">
+        <div class="p-4" #myDivTem>
+            Div11
+        </div>
+    </div>
+    <div class="col-3">
+        <button (click)="addDivColor('red')">Red</button>
+        <button (click)="addDivColor('green')">Green</button>
+    </div>
+</div>
+<button (click)="readData()">Read Data</button>

@@ -12,6 +12,7 @@ import { SignalBasic } from './pages/signal-basic/signal-basic';
 import { BasicReactiveForm } from './pages/basic-reactive-form/basic-reactive-form';
 import { BasicSignalForm } from './pages/basic-signal-form/basic-signal-form';
 import { ParentResuableComponent } from './pages/parent-resuable-component/parent-resuable-component';
+import { ViewChildEx } from './pages/view-child-ex/view-child-ex';
 
 export const routes: Routes = [
     {
@@ -66,6 +67,10 @@ export const routes: Routes = [
     {
         path:'parent-reusable',
         component:ParentResuableComponent
+    },
+    {
+        path:'view-child',
+        component:ViewChildEx
     },
     {
         path:'**',
