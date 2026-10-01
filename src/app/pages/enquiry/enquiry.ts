@@ -1,16 +1,20 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Component, signal, WritableSignal } from '@angular/core';
+import { Component, OnInit, signal, WritableSignal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CustomAlert } from '../../shared/reusableComponent/custom-alert/custom-alert';
 import { CustomTable } from '../../shared/reusableComponent/custom-table/custom-table';
+import { FormatCardNumberPipe } from '../../shared/pipes/format-card-number-pipe';
+import { map, Observable } from 'rxjs';
+import { AsyncPipe } from '@angular/common';
+import { CustomListGroup } from '../../shared/reusableComponent/custom-list-group/custom-list-group';
 
 @Component({
-  imports: [FormsModule, CustomAlert, CustomTable],
+  imports: [FormsModule, CustomAlert, CustomTable, FormatCardNumberPipe, AsyncPipe, CustomListGroup],
   selector: 'app-enquiry',
   styleUrl: './enquiry.css',
   templateUrl: './enquiry.html',
 })
-export class Enquiry {
+export class Enquiry implements OnInit {
   categoryList=signal<any[]>([])
   statusList=signal<any[]>([])
   loader:WritableSignal<boolean>=signal<boolean>(false)
@@ -36,10 +40,32 @@ export class Enquiry {
     {keyName:'statusId',columnName:'Status'},
     {keyName:'categoryId',columnName:'Category'}
   ]
+  cardNumber:string='1111222233334646'
+  categoryListObs$:Observable<any[]>= new Observable<any[]>()
+  statusListObs$=new Observable<any[]>()
+  roleList:string[]=['Admin','Guest','User','SuperAdmin']
+  documentList:string[]=['Adhar Card','Pan Card','Driving Licence','Voter Card']
+  selectedRole:string='Guest'
+  selectedDocument:string="Driving Licence"
   constructor(private http:HttpClient){
-    this.getAllCategory()
-    this.getAllStatus()
+
+  }
+  ngOnInit(): void {
+    // this.getAllCategory()
+    // this.getAllStatus()
+    this.categoryListObs$=this.http.get<any[]>("https://api.freeprojectapi.com/api/Enquiry/get-categories").pipe(
+      map((res:any)=>res.data)
+    )
+    this.statusListObs$=this.http.get<any[]>("https://api.freeprojectapi.com/api/Enquiry/get-statuses").pipe(
+      map((res:any)=>res.data)
+    )
     this.getAllEnquiry()
+  }
+  setSelectedRole(role:string){
+    this.selectedRole=role
+  }
+  setSelectedDocument(document:string){
+    this.selectedDocument=document
   }
   getAllCategory(){
     this.http.get("https://api.freeprojectapi.com/api/Enquiry/get-categories").subscribe({

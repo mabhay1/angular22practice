@@ -1,3 +1,14 @@
+<div class="row my-2">
+    <div class="col-6">
+        <app-custom-list-group [list]="roleList" [selectedValue]="selectedRole" (valueSelected)="setSelectedRole($event)"></app-custom-list-group>
+        selectedRole-- {{selectedRole}}
+    </div>
+    <div class="col-6">
+        <app-custom-list-group [list]="documentList" [selectedValue]="selectedDocument" (valueSelected)="setSelectedDocument($event)"></app-custom-list-group>
+        selectedDocument-- {{selectedDocument}}
+    </div>
+</div>
+
 <div class="row">
     <div class="col-4">
         <app-custom-alert [alertType]="'Success'" [alertMessage]="'This is Success'" [alertClass]="'alert-success'"></app-custom-alert>
@@ -7,6 +18,17 @@
     </div>
     <div class="col-4">
         <app-custom-alert [alertType]="'Error'" [alertMessage]="'This is Error'" [alertClass]="'alert-danger'"></app-custom-alert>
+    </div>
+</div>
+<div class="row">
+    <div class="col-4">
+        {{'3342898977778898'|formatCardNumber}}
+    </div>
+    <div class="col-4">
+        {{cardNumber|formatCardNumber:'$'}}
+    </div>
+    <div class="col-4">
+        {{'1342898977773241'|formatCardNumber:'-'}}
     </div>
 </div>
 <div class="row">
@@ -151,7 +173,7 @@
                         </label>
                         <select [(ngModel)]="enquiryObj.categoryId" class="form-select" id="categoryId">
                             <option selected disabled>Select category</option>
-                            @for (item of categoryList(); track $index) {
+                            @for (item of categoryListObs$|async; track $index) {
                             <option [value]="item.categoryId">{{item.categoryName}}</option>
                             }
                         </select>
@@ -164,7 +186,7 @@
                         </label>
                         <select class="form-select" [(ngModel)]="enquiryObj.statusId" id="statusId">
                             <option selected disabled>Select status</option>
-                            @for (item of statusList(); track $index) {
+                            @for (item of statusListObs$|async; track $index) {
                             <option [value]="item.statusId">{{item.statusName}}</option>
                             }
                         </select>

@@ -36,16 +36,17 @@
                     <span class="visually-hidden">Loading...</span>
                 </div>
             }
-            @for (item of tableData; track $index) {
+            @for (item of filteredData; track $index) {
             <tr>
-                <td>{{$index+1}}</td>
+                <td>{{$index+1+(currentPage-1)*pageSize}}</td>
                 @for (column of columnArray; track $index) {
-                <td>{{item[column.keyName]}}</td>
+                <td>{{item[column.keyName]|na:'NOT AVAIALABLE'}}</td>
                 }
                 <td class="text-center">
-                    <button class="btn btn-sm btn-warning me-1" (click)="EditClicked(item)">
+                    <!-- <button class="btn btn-sm btn-warning me-1" (click)="EditClicked(item)">
                         Edit
-                    </button>
+                    </button> -->
+                    <app-custom-button [btnClass]="'btn btn-sm btn-warning me-1'" [btnTxt]="'Edit'" (buttonClicked)="EditClicked(item)"></app-custom-button>
                     <button class="btn btn-sm btn-outline-danger" (click)="DeleteClicked(item)">
                         Delete
                     </button>
@@ -54,4 +55,45 @@
             }
         </tbody>
     </table>
+</div>
+
+<div class="d-flex justify-content-between align-items-center mt-3">
+    <div class="d-flex align-items-center gap-2">
+        <span class="text-muted">Show</span>
+
+        <select [(ngModel)]="pageSize" class="form-select form-select-sm" style="width: 75px;" (change)="onPageSizeChange()">
+            <option>5</option>
+            <option selected>10</option>
+            <option>60</option>
+            <option>200</option>
+            <option>300</option>
+        </select>
+
+        <span class="text-muted">entries</span>
+    </div>
+    @if (currentPage*pageSize<tableData.length) {
+        <div>{{(currentPage-1)*pageSize+1}}-{{currentPage*pageSize}} of {{tableData.length}}</div>
+    }
+    @else {
+        <div>{{(currentPage-1)*pageSize+1}}-{{tableData.length}} of {{tableData.length}}</div>
+    }
+    <!-- Pagination -->
+    <nav>
+        <ul class="pagination pagination-sm mb-0">
+            <li class="page-item">
+                <button [disabled]="currentPage===1" class="page-link" (click)="onPrevious()">Previous</button>
+            </li>
+
+            @for (item of pageArray|slice:startPageIndex:endIndexPage; track $index) {
+                <li class="page-item" [ngClass]="currentPage===item?'active':''">
+                    <button class="page-link" (click)="getPageData(item)">{{item}}</button>
+                </li>
+            }
+            <li class="page-item">
+                <button [disabled]="currentPage>=pageArray.length" class="page-link" (click)="onNext()">Next</button>
+            </li>
+
+        </ul>
+    </nav>
+
 </div>

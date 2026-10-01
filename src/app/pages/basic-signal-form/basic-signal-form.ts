@@ -7,9 +7,10 @@ import { EmployeeService } from '../../services/employee-service';
 import { IApiResponse } from '../../models/interface/BankUser.model';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ProgressBar } from '../../shared/reusableComponent/progress-bar/progress-bar';
+import { CustomTable } from '../../shared/reusableComponent/custom-table/custom-table';
 
 @Component({
-  imports: [FormField, AsyncPipe, ProgressBar],
+  imports: [FormField, AsyncPipe, ProgressBar,CustomTable],
   selector: 'app-basic-signal-form',
   styleUrl: './basic-signal-form.css',
   templateUrl: './basic-signal-form.html',
@@ -19,6 +20,14 @@ export class BasicSignalForm implements OnInit {
   employeeSrv=inject(EmployeeService)
   childDept$= new Observable<any[]>()
   employeeList=signal<EmployeeModel[]>([])
+
+  employeeColumns:any[] = [
+    {keyName: 'employeeName',columnName: 'Employee'},
+    {keyName:'contactNo',columnName:'Contact'},
+    {keyName:'deptId',columnName:'Department'},
+    {keyName:'gender',columnName:'Gender'},
+    {keyName:'role',columnName:'Role'},
+  ]
 
 
   employeeForm=form(this.employeeObj,(schema)=>{

@@ -1,0 +1,5 @@
+<ul class="list-group">
+  @for (item of list; track $index) {
+    <li class="list-group-item" [ngClass]="selectedValue===item?'active':''" (click)="setSelctedValue(item)">{{item}}</li>
+  }
+</ul>
