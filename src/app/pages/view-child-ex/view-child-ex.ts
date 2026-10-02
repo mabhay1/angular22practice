@@ -35,7 +35,5 @@ export class ViewChildEx implements OnInit,AfterViewInit {
     alert(`alertMessage= ${alertMessage}
             progressValue= ${progressValue}`)  
             
-    this.progressBarComp.newVariable="Abhay"
-    this.progressBarComp.newSignal.set("Angular")
   }
 }
