@@ -1,0 +1,108 @@
+<div class="row">
+    <div class="col-4">
+        <ng-container *ngTemplateOutlet="hiNameTem; context:{empName:'Abhay'}">
+
+        </ng-container>
+        <ng-container *ngTemplateOutlet="hiNameTem; context:{empName:'Joe'}">
+
+        </ng-container>
+    </div>
+</div>
+<ng-template #hiNameTem let-name="empName">
+    <p>Hi, from template <strong>{{name}}</strong></p>
+</ng-template>
+
+<div class="row">
+    <div class="col-3">
+        <ng-container *ngTemplateOutlet="labelTem; context:{title:'Enter Full Name',icon:'fa-user',labelText:'Enter Full Name'}"></ng-container>
+        <input type="text">
+    </div>
+    <div class="col-3">
+        <ng-container *ngTemplateOutlet="labelTem; context:{title:'Enter Phone Number',icon:'fa-phone',labelText:'Enter Phone Number'}"></ng-container>
+        <input type="text">
+    </div>
+    <div class="col-3">
+        <ng-container *ngTemplateOutlet="labelTem; context:{title:'Enter email id',icon:'fa-envelope',labelText:'Enter email id'}"></ng-container>
+        <input type="text">
+    </div>
+</div>
+<ng-template #labelTem let-toolttipText="title" let-labelIcon="icon" let-labelText="labelText">
+    <label [title]="toolttipText"><i [class]="'fa '+labelIcon"></i>{{labelText}}</label>
+</ng-template>
+<div class="row">
+    <div class="col-4">
+        <ng-container *ngTemplateOutlet="hiTem">
+            
+        </ng-container>
+    </div>
+    <div class="col-4">
+        <ng-template #hiTem>
+            <p>Hi, from template</p>
+        </ng-template>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-3">
+        <div *ngIf="isDiv1Visible else elseDiv1Tem" class="p-4 bg-success">
+            div1
+        </div>
+    </div>
+    <div class="col-3">
+        <ul *ngIf="cityList.length!==0 else emptyCityListTem">
+            <li *ngFor="let city of cityList">{{city}}</li>
+        </ul>
+    </div>
+    <div class="col-4">
+        <table class="table table-hover align-middle mb-0">
+
+            <thead class="table-light">
+                <tr>
+                    <th>Sno</th>
+                    <th>Title</th>
+                    <th>Url</th>
+                    <th>Thumbnail</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <ng-container *ngIf="!isloading() else loadingTem">
+                    <tr *ngFor="let photo of photoList();let sno=index">
+                        <td>{{sno+1}}</td>
+                        <td>{{photo.title}}</td>
+                        <td>{{photo.url}}</td>
+                        <td>{{photo.thumbnailUrl}}</td>
+                    </tr>
+                </ng-container>
+            </tbody>
+
+        </table>
+    </div>
+</div>
+<hr>
+<div class="row">
+    <div class="col-3">
+        <button (click)="isDiv1Visible=!isDiv1Visible">Toggle</button>
+    </div>
+</div>
+<ng-template #elseDiv1Tem>
+    <p>Div is Hidden</p>
+</ng-template>
+<ng-template #emptyCityListTem>
+    <p>City List is empty</p>
+</ng-template>
+<ng-template #loadingTem>
+    <tr>
+        <td colspan="4" class="text-center">
+            <div class="spinner-grow text-muted"></div>
+            <div class="spinner-grow text-primary"></div>
+            <div class="spinner-grow text-success"></div>
+            <div class="spinner-grow text-info"></div>
+            <div class="spinner-grow text-warning"></div>
+            <div class="spinner-grow text-danger"></div>
+            <div class="spinner-grow text-secondary"></div>
+            <div class="spinner-grow text-dark"></div>
+            <div class="spinner-grow text-light"></div>
+        </td>
+    </tr>
+</ng-template>

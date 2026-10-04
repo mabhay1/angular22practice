@@ -13,6 +13,7 @@ import { BasicReactiveForm } from './pages/basic-reactive-form/basic-reactive-fo
 import { BasicSignalForm } from './pages/basic-signal-form/basic-signal-form';
 import { ParentResuableComponent } from './pages/parent-resuable-component/parent-resuable-component';
 import { ViewChildEx } from './pages/view-child-ex/view-child-ex';
+import { TemplateContainer } from './pages/template-container/template-container';
 
 export const routes: Routes = [
     {
@@ -71,6 +72,10 @@ export const routes: Routes = [
     {
         path:'view-child',
         component:ViewChildEx
+    },
+    {
+        path:'ng-template-container',
+        component:TemplateContainer
     },
     {
         path:'**',
