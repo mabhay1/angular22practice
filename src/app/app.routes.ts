@@ -14,6 +14,7 @@ import { BasicSignalForm } from './pages/basic-signal-form/basic-signal-form';
 import { ParentResuableComponent } from './pages/parent-resuable-component/parent-resuable-component';
 import { ViewChildEx } from './pages/view-child-ex/view-child-ex';
 import { TemplateContainer } from './pages/template-container/template-container';
+import { CrudLocalStorage } from './pages/crud-local-storage/crud-local-storage';
 
 export const routes: Routes = [
     {
@@ -76,6 +77,10 @@ export const routes: Routes = [
     {
         path:'ng-template-container',
         component:TemplateContainer
+    },
+    {
+        path:'local-storage-crud',
+        component:CrudLocalStorage
     },
     {
         path:'**',
