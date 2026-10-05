@@ -3,9 +3,12 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Component, inject, signal, WritableSignal } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { ShowMoreLess } from '../../shared/reusableComponent/show-more-less/show-more-less';
+import { NumbersOnly } from '../../shared/directives/numbers-only';
+import { ReadOnlyDir } from '../../shared/directives/read-only-dir';
+import { CopyPasteDir } from '../../shared/directives/copy-paste-dir';
 
 @Component({
-  imports: [SlicePipe, FormsModule, ShowMoreLess],
+  imports: [SlicePipe, FormsModule, ShowMoreLess, NumbersOnly,ReadOnlyDir,CopyPasteDir],
   selector: 'app-bus-vendor',
   styleUrl: './bus-vendor.css',
   templateUrl: './bus-vendor.html',

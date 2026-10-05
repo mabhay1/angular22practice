@@ -1,8 +1,9 @@
 import { Component, signal, WritableSignal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Highlight } from '../../shared/directives/highlight';
 
 @Component({
-  imports: [FormsModule],
+  imports: [FormsModule,Highlight],
   selector: 'app-signal-basic',
   styleUrl: './signal-basic.css',
   templateUrl: './signal-basic.html',
@@ -23,7 +24,6 @@ export class SignalBasic {
     setTimeout(()=>{
       // this.productName="Laptop"
       // this.productPrice.set(15000)
-      debugger
       // this.cityList().push("Thane")
       this.cityList.update(oldCityList=>[...oldCityList,"Banglore"])
     },3000)

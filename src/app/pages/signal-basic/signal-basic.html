@@ -1,11 +1,11 @@
 <div class="row">
-    <div class="col-3">
+    <div appHighlight [colorName]="'blue'" class="col-3">
         {{productName}}
     </div>
     <div class="col-2">
         <button class="btn btn-success" (click)="onChange()">Change</button>
     </div>
-    <div class="col-3">
+    <div appHighlight [colorName]="'green'" class="col-3">
         {{productPrice()}}
     </div>
     <div class="col-2">

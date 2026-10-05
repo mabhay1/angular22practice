@@ -4,9 +4,12 @@ import { BankUser, IApiResponse, IBankUserList } from '../../models/interface/Ba
 import { BankUserService } from '../../services/bank-user-service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { finalize, map } from 'rxjs';
+import { DisableCopyPaste } from '../../shared/directives/disable-copy-paste';
+import { ToolTipDir } from '../../shared/directives/tool-tip-dir';
+import { FocusDirective } from '../../shared/directives/focus-directive';
 
 @Component({
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule,DisableCopyPaste, ToolTipDir, FocusDirective],
   selector: 'app-basic-reactive-form',
   styleUrl: './basic-reactive-form.css',
   templateUrl: './basic-reactive-form.html',

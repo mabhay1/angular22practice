@@ -23,7 +23,9 @@ export class CrudLocalStorage implements OnInit {
       empId:[0],
       empName:[''],
       empEmail:[''],
-      empPhone:['']
+      empPhone:[''],
+      city:[''],
+      state:['']
     })
   }
   getEmployee(){
@@ -37,18 +39,18 @@ export class CrudLocalStorage implements OnInit {
     const searchValue=event.target.value
     if(searchValue){
       // this.filteredList=this.employeeList.filter(x=>{
-      //   const stringValues=Object.values(x).filter(x=>typeof (x)=='string')
-      //   for(let i of stringValues){
-      //     if(i.toLowerCase().includes(searchValue.toLowerCase())){
+      //   for(let i of Object.values(x)){
+      //     if(String(i).toLowerCase().includes(searchValue.toLowerCase())){
       //       return true
       //     }
       //   }
       //   return false
       // })
       this.filteredList=this.employeeList.filter(q=>{
-        const stringValues=Object.values(q).filter(x=>typeof x==='string')
-        return stringValues.some(m=>m.toLowerCase().includes(searchValue.toLowerCase()))
+        return Object.values(q).some(m=>String(m).toLowerCase().includes(searchValue.toLowerCase()))
       })
+      console.log("filteredlist",this.filteredList)
+      console.log("actuallist",this.employeeList)
     }
     else{
       this.filteredList=this.employeeList
@@ -64,13 +66,16 @@ export class CrudLocalStorage implements OnInit {
       const employeeIndex = this.employeeList.findIndex(x=>x.empId===id)
       if(employeeIndex!==-1){
         this.employeeList.splice(employeeIndex,1)
-        localStorage.setItem('EmpData',JSON.stringify(this.employeeList))
-        this.getEmployee()
+        this.updateLocalstorage()
       }
       else{
         alert("Element does not exist")
       }
     }
+  }
+  updateLocalstorage(){
+    localStorage.setItem('EmpData',JSON.stringify(this.employeeList))
+    this.filteredList=this.employeeList
   }
   onReset(){
     this.employeeForm.reset({
@@ -86,11 +91,10 @@ export class CrudLocalStorage implements OnInit {
     if(singleEmployee===undefined){
       const uniqueValue=Math.random()
       formValue.empId=this.employeeList.length+uniqueValue
-      this.employeeList.push(formValue)
+      this.employeeList.unshift(formValue)
       this.onReset()
-      localStorage.setItem('EmpData',JSON.stringify(this.employeeList))
+      this.updateLocalstorage()
       this.isEmpFormVisible=false
-      this.getEmployee()
     }
     else{
       alert("Employee Already exists")
@@ -104,10 +108,11 @@ export class CrudLocalStorage implements OnInit {
       singleEmployee.empName=formValue.empName
       singleEmployee.empEmail=formValue.empEmail
       singleEmployee.empPhone=formValue.empPhone
-      localStorage.setItem('EmpData',JSON.stringify(this.employeeList))
+      singleEmployee.city=formValue.city
+      singleEmployee.state=formValue.state
+      this.updateLocalstorage()
       this.onReset()
-      this.isEmpFormVisible=false
-      this.getEmployee()
+      // this.isEmpFormVisible=false
     }
     else{
       alert("Employee does not exist")
@@ -119,5 +124,7 @@ interface IEmployee{
     empId:number,
     empName:string,
     empEmail:string,
-    empPhone:string
+    empPhone:string,
+    city:string,
+    state:string
 }
